@@ -17,7 +17,7 @@ transform: scaleX(-1);
 navigator.mediaDevice.getUserMedia(options)
 ```
 也可以用 `asysn/await`, 但是必須配合函式
-
+...
 
 ## 關掉攝影機的方法
 [MediaStreamTrack.stop()](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop)

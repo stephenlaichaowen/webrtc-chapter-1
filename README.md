@@ -10,13 +10,14 @@
 transform: scaleX(-1);
 
 ## API
+
+
+## 開啟攝影機的方法
 ```
 navigator.mediaDevice.getUserMedia(options)
 ```
+也可以用 `asysn/await`, 但是必須配合函式
 
-## 開啟攝影機的方法
-1. 使用 `asysn/await`, 但是必須配合函式
-2. 使用 `promise`
 
 ## 關掉攝影機的方法
 [MediaStreamTrack.stop()](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop)

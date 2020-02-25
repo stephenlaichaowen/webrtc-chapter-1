@@ -1,3 +1,5 @@
+# 學習筆記
+
 ## CSS 的 '*' 是甚麼意思 ?
 * 所有 html 標籤元素
 
@@ -6,3 +8,6 @@
 
 ## 把元素水平反轉的方法
 * transform: scaleX(-1);
+
+## 關掉攝影機的方法
+[MediaStreamTrack.stop()](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop)

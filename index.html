@@ -25,14 +25,23 @@
     box-sizing: border-box;
   }
 
+  body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   #videoStream {
-    position: fixed;
-    right: 50px;
-    bottom: 50px;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
     background: #000;
+    
+  }
+
+  .box {
+    position: relative;
   }
 
   .container {
@@ -40,9 +49,26 @@
     padding: 50px;
   }
 
+  #getVideoBtn,
+  #closeVideoBtn {
+    position: absolute;
+    /* z-index: 1000; */
+    background: rgba(0, 0, 0, .5);
+  }
+
+  #closeVideoBtn {
+    right: 0;
+    bottom: 15px;
+  }
+
   #getVideoBtn {
-    background: #00cc99;
-    border: none;
+    bottom: 15px;
+    left: 0;
+  }
+
+  #getVideoBtn {
+    /* background: #00cc99;
+    border: none; */
   }
 
   #getVideoBtn:focus {
@@ -51,11 +77,11 @@
 </style>
 
 <body>
-  <div class="container d-flex justify-content-center">
-    <button id="getVideoBtn" class="btn btn-secondary mx-3">取得影像</button>
-    <button id="closeVideoBtn" class="btn btn-secondary mx-3">關閉影像</button>
+  <div class="box">
+    <video id="videoStream" class="img-fluid" playsinline autoplay></video>
+    <button id="getVideoBtn" class="btn btn-outline-success mx-3 btn-lg">開啟相機</button>
+    <button id="closeVideoBtn" class="btn btn-outline-secondary mx-3 btn-lg">關閉相機</button>
   </div>
-  <video id="videoStream" playsinline autoplay></video>
 </body>
 
 </html>
@@ -71,8 +97,8 @@
 
   closeVideoBtn.addEventListener('click', e => {
     e.preventDefault()
-    stopStreamedVideo(videoStream)    
-  })  
+    stopStreamedVideo(videoStream)
+  })
 
   getVideoBtn.addEventListener('click', e => {
     e.preventDefault()
@@ -86,8 +112,8 @@
         console.log(`an error occurred`);
       })
 
-      /* 使用 async/await 方式取得影像 */
-      // init()    
+    /* 使用 async/await 方式取得影像 */
+    // init()    
   })
 
   /* 使用 async/await 方式取得影像 */
@@ -114,4 +140,3 @@
   }
 
 </script>
-

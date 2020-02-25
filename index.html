@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <title>Basic getUserMedia demo</title>
+</head>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  #videoStream {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    background: #000;
+  }
+
+  .container {
+    /* height: 100vh; */
+    padding: 50px;
+  }
+
+  #getVideoBtn {
+    background: #00cc99;
+    border: none;
+  }
+
+  #getVideoBtn:focus {
+    box-shadow: 2px 2px 5px #92d6c5;
+  }
+</style>
+
+<body>
+  <div class="container d-flex justify-content-center">
+    <button id="getVideoBtn" class="btn btn-secondary mx-3">取得影像</button>
+    <button id="closeVideoBtn" class="btn btn-secondary mx-3">關閉影像</button>
+  </div>
+  <video id="videoStream" playsinline autoplay></video>
+</body>
+
+</html>
+
+<script>
+  const closeVideoBtn = document.querySelector('#closeVideoBtn')
+  const getVideoBtn = document.querySelector('#getVideoBtn')
+  const videoStream = document.querySelector('#videoStream')
+  const options = {
+    video: true,
+    audio: true
+  }
+
+  closeVideoBtn.addEventListener('click', e => {
+    e.preventDefault()
+    stopStreamedVideo(videoStream)    
+  })  
+
+  getVideoBtn.addEventListener('click', e => {
+    e.preventDefault()
+
+    /* 使用 promise 取得影像 */
+    navigator.mediaDevices.getUserMedia(options)
+      .then(stream => {
+        videoStream.srcObject = stream
+      })
+      .catch(err => {
+        console.log(`an error occurred`);
+      })
+
+      /* 使用 async/await 方式取得影像 */
+      // init()    
+  })
+
+  /* 使用 async/await 方式取得影像 */
+  async function init() {
+    try {
+      const stream =
+        await navigator.mediaDevices.getUserMedia(options)
+      videoStream.srcObject = stream
+    } catch {
+      console.log(`an error occurred`)
+    }
+  }
+
+  // 關掉攝影機
+  function stopStreamedVideo(videoElem) {
+    const stream = videoElem.srcObject;
+    const tracks = stream.getTracks();
+
+    tracks.forEach(function (track) {
+      track.stop();
+    });
+
+    videoElem.srcObject = null;
+  }
+
+</script>
+
+<iframe 
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/bMisKtMwssI" 
+  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
